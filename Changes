@@ -1,5 +1,6 @@
 Revision history for Perl extension File::Locate.
 
-0.50  Tue Apr  9 08:48:33 2002
-	- first public version; created by Thomas Dorner <Thomas.Dorner@start.de>
+0.01  Mon May 26 17:52:53 2003
+	- original version; created by h2xs 1.22 with options
+		-b 5.5.3 -n File::Locate
 
