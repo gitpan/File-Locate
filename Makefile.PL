@@ -1,31 +1,18 @@
 use 5.00503;
 use ExtUtils::MakeMaker;
 
-my $LOCATE_DB;
-my @data = `strings \`which locate\``;
-if (! $?) {
-    chomp @data;
-    ($LOCATE_DB) = grep { m!^(/.*)! and 
-                          $1 !~ /\.so\.(?:\d+)?$/ and 
-                          -e $1 } @data;
-}
-
-$LOCATE_DB = do {
-    print "Enter the location of your locate-db file [$LOCATE_DB]: ";
-    chomp (my $input = <STDIN>);
-    $input = $input ne '' ? $input : $LOCATE_DB;
-};
-
 WriteMakefile(
     'NAME'		    => 'File::Locate',
     'VERSION_FROM'	=> 'Locate.pm', 
-    'PREREQ_PM'		=> {}, 
+    'PREREQ_PM'		=> {
+	'Test::More' => 0,
+    }, 
     ($] >= 5.005 ?    
       (ABSTRACT_FROM => 'Locate.pm', # retrieve abstract from module
        AUTHOR     => 'Tassilo von Parseval ' .
                       '<tassilo.von.parseval@rwth-aachen.de>') : ()),
     'LIBS'		=> [''], 
-    'DEFINE'		=> "-DLOCATE_DB=\\\"$LOCATE_DB\\\"", 
+    'DEFINE'		=> '',
     'INC'		=> '-I.', 
 );
 

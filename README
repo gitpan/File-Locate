@@ -1,4 +1,4 @@
-File/Locate version 0.01
+File/Locate version 0.60
 ========================
 
 File::Locate is a direct port of the GNU locate command. As of now, you can
@@ -19,20 +19,11 @@ When using suncc under Solaris, you probably have to do
 
 in order to put ucbcc into ANSI mode.
 
-Makefile.PL doesn't yet run without user-intervention. You'll be prompted
-for the default location of your locate-db file. Before that, Makefile.PL
-tries to find this path by looking at the locate-binary on your system.
-
-If you have a working which(1) and strings(1) it will usually find something
-but this is probably not guaranteed to be the correct value therefore it asks
-before processing. Note that the module will also work if it can't determine
-a default locate-db or you give it a bogus one.
-
 DEPENDENCIES
 
 This module requires these other modules and libraries:
-
-  None save for a working C-compiler.
+    
+    Test::More
 
 An existing locate-db wont hurt, too. ;-) You can create one manually if 
 you have the frcode program:
@@ -41,13 +32,12 @@ you have the frcode program:
 
 PLATFORMS
 
-Tested on Perl5.8.0 and 5.6.1 under Linux (gcc3.2) and with Perl5.005_03 
-under SUN Solaris (both Sun WorkShop 6 update 1 C 5.2 2000/09/11 and
-gcc2.95.3). 
+Tested on Perl5.005_03, Perl5.8.4 and 5.6.1 under Linux (gcc3.2) and with Perl5.005_03 
+and various BSDs. 0.60 (unlike 0.01) not tested on Solaris.
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2003 Tassilo von Parseval
+Copyright (C) 2003, 2004 Tassilo von Parseval
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the Free

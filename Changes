@@ -1,5 +1,12 @@
 Revision history for Perl extension File::Locate.
 
+0.60 Sat May 15 11:24:36 CEST 2004
+	- lots of changes:
+	  + support for slocate has been added
+	  + some changes in the interface
+	    (just read the perldocs and forget about 0.01)
+	  + now installable from CPAN.pm 
+
 0.01  Mon May 26 17:52:53 2003
 	- original version; created by h2xs 1.22 with options
 		-b 5.5.3 -n File::Locate

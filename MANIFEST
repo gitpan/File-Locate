@@ -12,4 +12,8 @@ locatedb.h
 ppport.h
 t/1.t
 t/2.t
+t/3.t
+t/4.t
 t/locatedb.test
+t/slocatedb.test
+META.yml                                 Module meta-data (added by MakeMaker)
