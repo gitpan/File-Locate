@@ -1,0 +1,10 @@
+Changes
+Locate.pm
+Makefile.PL
+MANIFEST
+README
+t/locate_base.t
+t/locate_link.t
+t/test.h
+t/testdir1/test.h
+t/testdir2/Test.h
