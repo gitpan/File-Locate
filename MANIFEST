@@ -10,6 +10,8 @@ fallback/const-c.inc
 fallback/const-xs.inc
 locatedb.h
 ppport.h
+t/0_pod.t
+t/0_pod_coverage.t
 t/1.t
 t/2.t
 t/3.t

@@ -1,8 +1,9 @@
-File/Locate version 0.60
+File/Locate version 0.61
 ========================
 
 File::Locate is a direct port of the GNU locate command. As of now, you can
-query an existing locate-db in a very similar way to locate(1L).
+query an existing locate-db in a very similar way to locate(1L). The module
+can also deal with the more recent slocate-format.
 
 INSTALLATION
 
@@ -33,11 +34,11 @@ you have the frcode program:
 PLATFORMS
 
 Tested on Perl5.005_03, Perl5.8.4 and 5.6.1 under Linux (gcc3.2) and with Perl5.005_03 
-and various BSDs. 0.60 (unlike 0.01) not tested on Solaris.
+and various BSDs. 0.60 and later (unlike 0.01) not tested on Solaris.
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2003, 2004 Tassilo von Parseval
+Copyright (C) 2003-2005 Tassilo von Parseval
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the Free
