@@ -1,5 +1,11 @@
 Revision history for Perl extension File::Locate.
 
+0.62 Sat Feb 17 08:59:12 EST 2007
+    - fixed a memory-leak when using POSIX regexes
+      (reported by Andrew Page <andrew_page AT ltx DOT com>)
+    - fixed a flurry of other memory leaks discovered while fixing the above
+    - fixed parsing of the parameter list to locate() when a code-ref was passed
+
 0.61 Sat Apr  9 09:34:21 CEST 2005
     - added POD- and POD-coverage-tests
     - a minor warning added to the PODs

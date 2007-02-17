@@ -131,7 +131,7 @@ int getstr (char **lineptr, size_t *n, FILE *stream,
                 *n += MIN_CHUNK;
 
             nchars_avail = *n + *lineptr - read_pos;
-            *lineptr = realloc (*lineptr, *n);
+            Renew(*lineptr, *n, char);
             if (!*lineptr)
                 return -1;
             read_pos = *n - nchars_avail + *lineptr;
@@ -210,7 +210,6 @@ int check_path_access(char *codedpath) {
 }
 
 void call_coderef (SV *coderef, char *path) {
-    SV *src;
     dSP;
 
     /* FIXME We aren't yet prepared for lexical $_ as coming in 5.9.1 */
@@ -402,16 +401,15 @@ _locate (pathpart, ...)
 	    
 	    if (REGEX) {
 		if (regexec(preg,path,nmatch,pmatch,0) == 0) {
+		    ++printed;
 		    if (coderef) {
 			call_coderef(coderef, path);
 		    }
 		    else if (GIMME_V == G_ARRAY) 
 			XPUSHs(sv_2mortal(newSVpvn(path, strlen(path))));
 		    else {
-			Safefree(path);
-			XSRETURN_YES;
+                        goto clean_up;
 		    }
-		    ++printed;
 		}
 	    }
 	    else {
@@ -436,16 +434,15 @@ _locate (pathpart, ...)
 			    
 			    if (globflag == false || 
 				    fnmatch (pathpart, path, 0) == 0) {
+                                printed++;
 				if (coderef) {
 				    call_coderef(coderef, path);
 				}
 				else if (GIMME_V == G_ARRAY) {
 				    XPUSHs(sv_2mortal(newSVpvn(path, strlen(path))));
-				    ++printed;
 				}
 				else {
-				    Safefree(path);
-				    XSRETURN_YES;
+                                    goto clean_up;
 				}
 			    }
 			    break;
@@ -454,19 +451,23 @@ _locate (pathpart, ...)
 		}
 	    } /* else (fnmatch)*/
         }
-
-	if (preg)
+clean_up:
+	if (preg) {
 	    regfree(preg);
+            Safefree(preg);
+        }
 	
 	Safefree(dbfile);
         Safefree(path);
 
         fclose(fp);
-
+        
         if(GIMME_V == G_ARRAY)
             XSRETURN(printed);
-        else 
-            XSRETURN_NO;
+        else if (printed && GIMME_V == G_SCALAR)
+            XSRETURN_YES;
+
+        XSRETURN_NO;
 
 void
 _slocate (str, ...)
@@ -692,11 +693,11 @@ _slocate (str, ...)
 		}
 	    }
 	    if (printit) {
+		res++;
 		if (coderef) 
 		    call_coderef(coderef, codedpath);
 		else if (GIMME_V == G_ARRAY) {
 		    XPUSHs(sv_2mortal(newSVpvn(codedpath, strlen(codedpath))));
-		    res++;
 		}
 		else {
 		    goto clean_up;
@@ -706,9 +707,14 @@ _slocate (str, ...)
 clean_up:
 
 	close(fd);
-	if (preg)
+	if (preg) {
 	    regfree(preg);
+            Safefree(preg);
+        }
+
 	Safefree(dbfile);
+        Safefree(bucket_of_holding);
+        Safefree(codedpath);
 
 	if (GIMME_V == G_ARRAY)
 	    XSRETURN(res);

@@ -13,7 +13,7 @@ use vars qw($VERSION @ISA @EXPORT);
 
 @EXPORT = qw(locate);
 
-$VERSION = '0.61';
+$VERSION = '0.62';
 
 bootstrap File::Locate $VERSION;
 
@@ -26,7 +26,9 @@ sub locate {
     for (my $i = 1; $i < @_; $i++) {
 	if ($_[$i] =~ /^-/) {
 	    $i++; next;
-	}
+	} elsif (ref $_[$i]) {
+            next;
+        }
 	$file = $_[$i];
 	last;
     }
@@ -137,7 +139,7 @@ Tassilo von Parseval <tassilo.von.parseval@rwth-aachen.de>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003-2005 by Tassilo von Parseval
+Copyright 2003-2007 by Tassilo von Parseval
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2, or (at your option) any later version.
 
